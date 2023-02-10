@@ -26,15 +26,26 @@ extern "C"
 #include <stdio.h>
 
 #undef PRINT
+#undef PFUNC
 #undef FERROR
 
-#ifdef DEBUG
+#ifdef DBG
 #define PRINT printf
+#define PFUNC PRINT("[DBG] %s()\n", __FUNCTION__)
 #define FERROR PRINT("[ERROR] %s()\n", __FUNCTION__)
 #else
 #define PRINT
+#define PFUNC
 #define FERROR
 #endif
+
+    static inline void dump(const char *txt, uint8_t *buf, int len)
+    {
+        printf("[DMP] %s: ", txt);
+        while (len--)
+            printf("%02X ", (int)*buf++);
+        printf("\n");
+    }
 
 #ifdef __cplusplus
 }

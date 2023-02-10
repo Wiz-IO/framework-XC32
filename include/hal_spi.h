@@ -78,54 +78,54 @@ extern "C"
     {
         union
         {
-            uint32_t CON; /* 0xBF821000 */
-            spicon_t con;
+            volatile uint32_t CON; /* 0xBF821000 */
+            volatile spicon_t con;
         };
         union
         {
-            uint32_t CON_CLR; /* 0xBF821004 */
-            spicon_t con_clr;
+            volatile uint32_t CON_CLR; /* 0xBF821004 */
+            volatile spicon_t con_clr;
         };
         union
         {
-            uint32_t CON_SET; /* 0xBF821008 */
-            spicon_t con_set;
+            volatile uint32_t CON_SET; /* 0xBF821008 */
+            volatile spicon_t con_set;
         };
         union
         {
-            uint32_t CON_INV; /* 0xBF82100C */
-            spicon_t con_inv;
+            volatile uint32_t CON_INV; /* 0xBF82100C */
+            volatile spicon_t con_inv;
         };
         union
         {
-            uint32_t STA; /* 0xBF821010 */
-            spistat_t sta;
+            volatile uint32_t STA; /* 0xBF821010 */
+            volatile spistat_t sta;
         };
         union
         {
-            uint32_t STA_CLR;
-            spistat_t sta_clr;
+            volatile uint32_t STA_CLR;
+            volatile spistat_t sta_clr;
         };
         union
         {
-            uint32_t STA_SET;
-            spistat_t sta_set;
+            volatile uint32_t STA_SET;
+            volatile spistat_t sta_set;
         };
         union
         {
-            uint32_t STA_INV;
-            spistat_t sta_inv;
+            volatile uint32_t STA_INV;
+            volatile spistat_t sta_inv;
         };
-        uint32_t BUF;      /* 0xBF821020 */
-        uint32_t __nc[3];  /* ********** */
-        uint32_t BRG;      /* 0xBF821030 */
-        uint32_t BRG_CLR;  /* 0xBF821034 */
-        uint32_t BRG_SET;  /* 0xBF821038 */
-        uint32_t BRG_INV;  /* 0xBF82103C */
-        uint32_t CON2;     /* 0xBF821040 */
-        uint32_t CON2_CLR; /* 0xBF821044 */
-        uint32_t CON2_SET; /* 0xBF821048 */
-        uint32_t CON2_INV; /* 0xBF82104C */
+        volatile uint32_t BUF;      /* 0xBF821020 */
+        volatile uint32_t __nc[3];  /* ********** */
+        volatile uint32_t BRG;      /* 0xBF821030 */
+        volatile uint32_t BRG_CLR;  /* 0xBF821034 */
+        volatile uint32_t BRG_SET;  /* 0xBF821038 */
+        volatile uint32_t BRG_INV;  /* 0xBF82103C */
+        volatile uint32_t CON2;     /* 0xBF821040 */
+        volatile uint32_t CON2_CLR; /* 0xBF821044 */
+        volatile uint32_t CON2_SET; /* 0xBF821048 */
+        volatile uint32_t CON2_INV; /* 0xBF82104C */
     } SPI_T;
 
 #define SPI_HZ_BRG(F, H) (((F / H) >> 1) - 1)
@@ -170,7 +170,7 @@ extern "C"
     static volatile SPI_T *HAL_SPI5 = (volatile SPI_T *)(&SPI5CON);
     static volatile SPI_T *HAL_SPI6 = (volatile SPI_T *)(&SPI6CON);
 
-#define SPI_ID_SFR(N) (volatile SPI_T *)((int *)&SPI1CON + (N << 2))
+#define SPI_ID_SFR(N) (volatile SPI_T *)((int *)&SPI1CON + (N * 128))
 
     static inline __attribute__((always_inline)) void spi_init(uint32_t id, uint32_t brg, uint32_t con)
     {
