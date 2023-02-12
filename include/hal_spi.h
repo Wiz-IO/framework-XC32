@@ -141,10 +141,6 @@ extern "C"
                 con = 0x00018265; // ENHBUF
             p->CON = con;
         }
-        else
-        {
-            FERROR;
-        }
     }
 
     static inline __attribute__((always_inline)) bool hal_spi_ready(volatile SPI_T *p)

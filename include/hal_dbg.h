@@ -26,17 +26,17 @@ extern "C"
 #include <stdio.h>
 
 #undef PRINT
-#undef PFUNC
-#undef FERROR
+#undef PRINT_FUNC
+#undef ERROR_FUNC
 
 #ifdef DBG
 #define PRINT printf
-#define PFUNC PRINT("[DBG] %s()\n", __FUNCTION__)
-#define FERROR PRINT("[ERROR] %s()\n", __FUNCTION__)
+#define PRINT_FUNC PRINT("[DBG] %s()\n", __FUNCTION__)
+#define ERROR_FUNC PRINT("[ERROR] %s()\n", __FUNCTION__)
 #else
 #define PRINT
-#define PFUNC
-#define FERROR
+#define PRINT_FUNC
+#define ERROR_FUNC
 #endif
 
     static inline void dump(const char *txt, uint8_t *buf, int len)
