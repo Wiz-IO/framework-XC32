@@ -1,7 +1,4 @@
-/*
- *  Created on: 30.08.2018
- *      Author: Georgi Angelov
- */
+/* Basic Template */
 
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
@@ -16,7 +13,7 @@ typedef enum {
     TASK_PRIORITY_RTOS_HIGH,
 } TASK_PRIORITY_E;
 #endif
-#define configMAX_PRIORITIES                    ( 8 )
+#define configMAX_PRIORITIES                    ( 6 )
 
 #define configUSE_PREEMPTION                    1
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
@@ -24,11 +21,11 @@ typedef enum {
 #define configCPU_CLOCK_HZ                      ( 200000000UL )
 #define configPERIPHERAL_CLOCK_HZ               ( 100000000UL )
 #define configTICK_RATE_HZ                      ( ( TickType_t ) 1000 )
-#define configMINIMAL_STACK_SIZE                ( 200 )
+#define configMINIMAL_STACK_SIZE                ( 400 ) 
 #define configISR_STACK_SIZE                    ( 400 )
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
 #define configSUPPORT_STATIC_ALLOCATION         0
-#define configTOTAL_HEAP_SIZE                   ( ( size_t ) 256 * 1024UL )
+#define configTOTAL_HEAP_SIZE                   ( ( size_t ) 64 * 1024UL )
 #define configMAX_TASK_NAME_LEN                 ( 16 )
 #define configUSE_16_BIT_TICKS                  0
 #define configIDLE_SHOULD_YIELD                 1
@@ -85,7 +82,7 @@ Only API functions that end in ...FromISR() can be used within interrupts. */
 #define INCLUDE_vTaskDelayUntil                 1
 #define INCLUDE_vTaskDelay                      1
 #define INCLUDE_xTaskGetSchedulerState          1
-#define INCLUDE_xTaskGetCurrentTaskHandle       1 //
+#define INCLUDE_xTaskGetCurrentTaskHandle       1
 #define INCLUDE_uxTaskGetStackHighWaterMark     1
 #define INCLUDE_xTaskGetIdleTaskHandle          1
 #define INCLUDE_eTaskGetState                   0
