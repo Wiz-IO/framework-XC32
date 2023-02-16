@@ -239,44 +239,44 @@ extern "C"
 
     ///////////////////////////////////////////////////////////////////////////
 
-    extern __inline__ void __attribute__((always_inline)) IRQ_Init(void)
+    static __inline__ void __attribute__((always_inline)) IRQ_Init(void)
     {
         PRISS = 0x76543210; // Configure Shadow Register Set
         while (PRISS != 0x76543210)
             continue;
     }
 
-    extern __inline__ void __attribute__((always_inline)) IRQ_Enable(IRQ_E source)
+    static __inline__ void __attribute__((always_inline)) IRQ_Enable(IRQ_E source)
     {
         volatile uint32_t *IECx = (volatile uint32_t *)(&IEC0 + ((0x10 * (source / 32)) / 4));
         volatile uint32_t *IECxSET = (volatile uint32_t *)(IECx + 2);
         *IECxSET = 1 << (source & 0x1f);
     }
 
-    extern __inline__ void __attribute__((always_inline)) IRQ_Disable(IRQ_E source)
+    static __inline__ void __attribute__((always_inline)) IRQ_Disable(IRQ_E source)
     {
         volatile uint32_t *IECx = (volatile uint32_t *)(&IEC0 + ((0x10 * (source / 32)) / 4));
         volatile uint32_t *IECxCLR = (volatile uint32_t *)(IECx + 1);
         *IECxCLR = 1 << (source & 0x1f);
     }
 
-    extern __inline__ bool __attribute__((always_inline)) IRQ_IsEnabled(IRQ_E source)
+    static __inline__ bool __attribute__((always_inline)) IRQ_IsEnabled(IRQ_E source)
     {
         return (bool)((*(volatile uint32_t *)(&IEC0 + ((0x10 * (source / 32)) / 4)) >> (source & 0x1f)) & 0x01);
     }
 
-    extern __inline__ bool __attribute__((always_inline)) IRQ_Get(IRQ_E source)
+    static __inline__ bool __attribute__((always_inline)) IRQ_Get(IRQ_E source)
     {
         return (bool)((*(volatile uint32_t *)(&IFS0 + ((0x10 * (source / 32)) / 4)) >> (source & 0x1f)) & 0x1);
     }
 
-    extern __inline__ void __attribute__((always_inline)) IRQ_Set(IRQ_E source, bool value)
+    static __inline__ void __attribute__((always_inline)) IRQ_Set(IRQ_E source, bool value)
     {
         volatile uint32_t *IFSx = (volatile uint32_t *)(&IFS0 + ((0x10 * (source / 32)) / 4));
         *(volatile uint32_t *)(IFSx + 1 + value) = 1 << (source & 0x1F);
     }
 
-    extern __inline__ void __attribute__((always_inline)) IRQ_Clear(IRQ_E source)
+    static __inline__ void __attribute__((always_inline)) IRQ_Clear(IRQ_E source)
     {
         volatile uint32_t *IFSx = (volatile uint32_t *)(&IFS0 + ((0x10 * (source / 32)) / 4));
         *(volatile uint32_t *)(IFSx + 1 + 0) = 1 << (source & 0x1F);
@@ -297,17 +297,17 @@ extern "C"
 
     ///////////////////////////////////////////////////////////////////////////
 
-    extern __inline__ void __attribute__((always_inline)) IRQ_INT_Enable(void)
+    static __inline__ void __attribute__((always_inline)) IRQ_INT_Enable(void)
     {
         __builtin_enable_interrupts();
     }
 
-    extern __inline__ bool __attribute__((always_inline)) IRQ_INT_Disable(void)
+    static __inline__ bool __attribute__((always_inline)) IRQ_INT_Disable(void)
     {
         return (bool)(__builtin_disable_interrupts() & 0x01); // return the interrupt status
     }
 
-    extern __inline__ void __attribute__((always_inline)) IRQ_INT_Restore(bool state)
+    static __inline__ void __attribute__((always_inline)) IRQ_INT_Restore(bool state)
     {
         if (state)
         {
