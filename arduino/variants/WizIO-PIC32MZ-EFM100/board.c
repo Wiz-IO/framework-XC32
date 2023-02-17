@@ -191,14 +191,15 @@ void debug_end(void)
 
 void BoardInit(void)
 {
-    SystemUnlock();
-
     ANSELA = 0;
     ANSELB = 0;
     ANSELC = 0;
     ANSELD = 0;
     ANSELE = 0;
     ANSELF = 0;
+    ANSELG = 0;
+
+    SystemUnlock();
 
     _CP0_BIS_CAUSE(0x00800000U); // Use Multi Vectored Interrupts
     INTCONSET = _INTCON_MVEC_MASK;
@@ -208,15 +209,14 @@ void BoardInit(void)
     PRECONbits.PREFEN = 0b11; // Predictive Prefetch Enable (Enable predictive prefetch for any address)
     PRECONbits.PFMWS = 2;     // PFM Access Time Defined in Terms of SYSCLK Wait States (Two wait states)
 
-    SYS_DEVCON_CacheCoherencySet(SYS_CACHE_WRITEBACK_WRITEALLOCATE);
-
+    SYS_DEVCON_CacheCoherencySet(SYS_CACHE_WRITEBACK_WRITEALLOCATE);   
+    
     PB1DIVbits.PBDIV = 1; // Peripheral Bus 1 Clock Divisor Control (PBCLK1 is SYSCLK divided by 2)
 
     // CORE TIMER 1 ms
     int ticks = CORE_TIMER_INTERRUPT_TICKS;
     asm volatile("mtc0   $0,$9");
-    asm volatile("mtc0   %0,$11"
-                 : "+r"(ticks));
+    asm volatile("mtc0   %0,$11" : "+r"(ticks));
     _CP0_SET_COMPARE(ticks);
     mCTSetIntPriority(4);
     mCTSetIntSubPriority(0);
