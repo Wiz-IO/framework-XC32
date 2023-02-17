@@ -252,14 +252,6 @@ extern "C"
 
     ///////////////////////////////////////////////////////////////////////////
 
-#ifndef DEBUG_BEGIN
-#define DEBUG_BEGIN
-#endif
-
-#ifndef DEBUG_END
-#define DEBUG_END
-#endif
-
 #define ABORT()       \
     do                \
     {                 \

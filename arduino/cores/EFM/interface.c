@@ -39,7 +39,6 @@ void my_assert(bool _EXP_, const char *_MSG_)
 {
     if (0 == _EXP_)
     {
-        DEBUG_BEGIN;
         printf("\n[ASSERT] %s", _MSG_);
         ABORT();
     }
@@ -47,7 +46,6 @@ void my_assert(bool _EXP_, const char *_MSG_)
 
 __attribute__((noreturn, naked)) void __cxa_pure_virtual()
 {
-    DEBUG_BEGIN;
     printf("\n[ASSERT] __cxa_pure_virtual File %s Line:%d", __FILE__, __LINE__);
     ABORT();
 }
@@ -170,7 +168,6 @@ void exeProcess()
 void vAssertCalled(const char *const pcFileName, unsigned long ulLine)
 {
     portDISABLE_INTERRUPTS();
-    DEBUG_BEGIN;
     printf("\n[ASSERT] FREERTOS: %s, Line: %lu\n", pcFileName, ulLine);
     ABORT();
 }
@@ -178,7 +175,6 @@ void vAssertCalled(const char *const pcFileName, unsigned long ulLine)
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
 {
     portDISABLE_INTERRUPTS();
-    DEBUG_BEGIN;
     printf("\n[ASSERT] FREERTOS Stack Overflow in Task: %s\n", (portCHAR *)pcTaskName);
     ABORT();
 }
