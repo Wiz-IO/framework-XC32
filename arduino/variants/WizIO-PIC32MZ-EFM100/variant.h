@@ -51,23 +51,6 @@ extern "C"
 
     // clang-format on
 
-void debug_begin(void);
-void debug_end(void);
-
-#undef DEBUG_BEGIN
-#define DEBUG_BEGIN           \
-    do                        \
-    {                         \
-        debug_begin();        \
-    } while (0)
-
-#undef DEBUG_END
-#define DEBUG_END    \
-    do               \
-    {                \
-        debug_end(); \
-    } while (0)
-
     ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef __cplusplus

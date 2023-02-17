@@ -163,29 +163,20 @@ spi_context_t spi_context[SPI_CONTEXT_MAX] = {
 // clang-format on
 ///////////////////////////////////////////////////////////////////////////////
 
-void debug_begin(void)
+#ifdef DBG
+
+static void debug(void)
 {
-    // printf for UART1 8n1 115200
-    if ((0 == (U1MODE & _U1MODE_ON_MASK)) && (__XC_UART != 1))
-    {
-        pinMux(&RPD15R, 1);
-        U1STA = U1MODE = 0;
-        U1BRG = (((SYS_CLK_BUS_PERIPHERAL_1 >> 4) + (115200 >> 1)) / 115200) - 1;
-        U1STA = _U1STA_UTXEN_MASK;
-        U1MODE = _U1MODE_ON_MASK;
-        __XC_UART = 1;
-    }
+    // no Serial, printf() UART1 8n1 115200
+    pinMux(&RPD15R, 1);
+    U1STA = U1MODE = 0;
+    U1BRG = (((SYS_CLK_BUS_PERIPHERAL_1 >> 4) + (115200 >> 1)) / 115200) - 1;
+    U1STA = _U1STA_UTXEN_MASK;
+    U1MODE = _U1MODE_ON_MASK;
+    __XC_UART = 1;
 }
 
-void debug_end(void)
-{
-    if ((U1MODE & _U1MODE_ON_MASK) && (__XC_UART == 1))
-    {
-        __XC_UART = 0;
-        U1STA = U1MODE = 0;
-        pinMux(&RPD15R, 0);
-    }
-}
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -201,7 +192,7 @@ void BoardInit(void)
 
     SystemUnlock();
 
-    _CP0_BIS_CAUSE(0x00800000U); // Use Multi Vectored Interrupts
+    _CP0_BIS_CAUSE(0x00800000U); // Multi Vectored Interrupts
     INTCONSET = _INTCON_MVEC_MASK;
 
     // Set up prefetch
@@ -236,6 +227,10 @@ void BoardInit(void)
 #else
     tcpip_init(0, 0);
 #endif
+#endif
+
+#ifdef DBG
+    debug();
 #endif
 }
 
