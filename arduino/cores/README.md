@@ -1,1 +1,1 @@
-# CORES
+# Arduino cores
