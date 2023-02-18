@@ -24,4 +24,4 @@ GNU General Public License
 
 ## Edit notes
 * static inline
-_( there may be minor errors )_
+* _( there may be minor errors )_
