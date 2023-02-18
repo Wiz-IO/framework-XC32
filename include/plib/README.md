@@ -22,5 +22,6 @@ spasov_bisav@yahoo.com
 
 GNU General Public License
 
-## Edit notes:
+## Edit notes
 * static inline
+_( there may be minor errors )_
